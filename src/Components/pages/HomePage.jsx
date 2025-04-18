@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
-import Carousel from "./Carousel";
-import "../index.css";
-
+import Carousel from "../common/Carousel";
+import "../../index.css"; 
 const Homepage = () => {
-  // State for products (UNCHANGED)
+  // State for products
   const [products, setProducts] = useState([]);
-  const [searchQuery, setSearchQuery] = useState("");
   const [productsLoading, setProductsLoading] = useState(false);
   const [productsError, setProductsError] = useState("");
 
@@ -15,7 +13,7 @@ const Homepage = () => {
   const { categoryId } = useParams();
   const img_url = "https://alvins.pythonanywhere.com/static/images/";
 
-  // Fetch products (UNCHANGED)
+  // Fetch products
   const fetchProducts = useCallback(async () => {
     setProductsLoading(true);
     setProductsError("");
@@ -40,21 +38,15 @@ const Homepage = () => {
     }
   }, [categoryId]);
 
-  // Initial data fetch (MODIFIED - removed carousel fetch)
+  // Initial data fetch
   useEffect(() => {
     fetchProducts();
   }, [fetchProducts]);
 
-  // Filter products based on search (UNCHANGED)
-  const filteredProducts = products.filter((product) =>
-    product?.product_name?.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  // Handlers (UNCHANGED)
+  // Handlers
   const handleProductClick = (product) => {
-    navigate(`/productcard/${product.id}`, { state: { product } });
+    navigate(`/products/${product.id}`, { state: { product } });
   };
-
   const handleAddToCart = async (product) => {
     const user_id = localStorage.getItem("user_id");
     if (!user_id) {
@@ -79,28 +71,18 @@ const Homepage = () => {
 
   return (
     <div className="homepage-container">
-      {/* Carousel Section - SIMPLIFIED */}
+      {/* Carousel Section */}
       <div className="carousel-section">
-        <Carousel /> {/* No props needed - self-contained */}
+        <Carousel />
       </div>
 
-      {/* Search Bar (UNCHANGED) */}
-      <div className="search-bar">
-        <input
-          type="text"
-          placeholder="Search products..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-      </div>
-
-      {/* Loading/Error States (UNCHANGED) */}
+      {/* Loading/Error States */}
       {productsLoading && <div className="loading-message">Loading products...</div>}
       {productsError && <div className="error-message">{productsError}</div>}
 
-      {/* Product Grid (UNCHANGED) */}
+      {/* Product Grid */}
       <div className="product-grid">
-        {filteredProducts.map((product) => (
+        {products.map((product) => (
           <div
             key={product.id}
             className="product-card"

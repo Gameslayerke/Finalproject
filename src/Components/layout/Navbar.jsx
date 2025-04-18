@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useAuth } from './AuthContext';
+import { useAuth } from '../contexts/AuthContext'; // Import useAuth hook
 import {
   FaShoppingCart,
   FaHeart,
@@ -20,7 +20,7 @@ import {
   FaHistory,
   FaStar
 } from 'react-icons/fa';
-import './Navbar.css';
+import '../styles/Navbar.css'; 
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -38,6 +38,7 @@ const Navbar = () => {
     orders: false,
     cart: false
   });
+
 
   const [unreadCount] = useState(0);
   const [wishlist] = useState([]);

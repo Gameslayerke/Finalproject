@@ -1,51 +1,84 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate, Link } from "react-router-dom"; 
+import { useParams, useLocation, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
-import "../index.css";
+import "../../index.css";
 
 const ProductCard = () => {
+  const { productId } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
-  const { product } = location.state || {};
+  
+  // Product state
+  const [product, setProduct] = useState(location.state?.product);
+  const [loading, setLoading] = useState(!location.state?.product);
+  const [error, setError] = useState("");
+
+  // Review state
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [review, setReview] = useState("");
   const [rating, setRating] = useState(0);
-  const [selectedColor, setSelectedColor] = useState("");
-  const [selectedSize, setSelectedSize] = useState("");
   const [reviews, setReviews] = useState([]);
   const [loadingReviews, setLoadingReviews] = useState(false);
   const [errorReviews, setErrorReviews] = useState("");
+
+  // Product options
+  const [selectedColor, setSelectedColor] = useState("");
+  const [selectedSize, setSelectedSize] = useState("");
+
+  // Payment state
   const [phone, setPhone] = useState("");
   const [paymentLoading, setPaymentLoading] = useState(false);
   const [paymentError, setPaymentError] = useState("");
   const [paymentSuccess, setPaymentSuccess] = useState(false);
 
+  // Generate random stock
   const stock = Math.floor(Math.random() * (50 - 10 + 1)) + 10;
+  const colors = ["Red", "Blue", "Green", "Black"];
+  const sizes = ["S", "M", "L", "XL"];
 
+  // Fetch product if not passed via state
+  useEffect(() => {
+    if (!product && productId) {
+      const fetchProduct = async () => {
+        setLoading(true);
+        try {
+          const response = await axios.get(
+            `https://alvins.pythonanywhere.com/api/getproduct/${productId}`
+          );
+          setProduct(response.data);
+        } catch (err) {
+          setError("Failed to load product details");
+          console.error("Product fetch error:", err);
+        } finally {
+          setLoading(false);
+        }
+      };
+      fetchProduct();
+    }
+  }, [productId, product]);
+
+  // Fetch reviews
   useEffect(() => {
     const fetchReviews = async () => {
       setLoadingReviews(true);
       setErrorReviews("");
       try {
         const response = await axios.get(
-          "https://alvins.pythonanywhere.com/reviews/158"
+          `https://alvins.pythonanywhere.com/reviews/${productId || 158}`
         );
         setReviews(response.data);
       } catch (err) {
         console.error("Error fetching reviews:", err);
-        setErrorReviews("No review, be the first to leave a review.");
+        setErrorReviews("No reviews yet. Be the first to leave a review.");
       } finally {
         setLoadingReviews(false);
       }
     };
 
-    fetchReviews();
-  }, []);
-
-  if (!product) {
-    navigate("/");
-    return null;
-  }
+    if (product) {
+      fetchReviews();
+    }
+  }, [product, productId]);
 
   const handleReviewSubmit = (e) => {
     e.preventDefault();
@@ -63,16 +96,16 @@ const ProductCard = () => {
   };
 
   const validatePhoneNumber = (phone) => {
-    const regex = /^254\d{9}$/; 
+    const regex = /^254\d{9}$/;
     return regex.test(phone);
   };
 
   const handleBuyNow = async () => {
-    const user_id = localStorage.getItem("user_id"); 
+    const user_id = localStorage.getItem("user_id");
 
     if (!user_id) {
       alert("You must be logged in to proceed with payment.");
-      navigate("/signin"); // Redirect to the login page
+      navigate("/login");
       return;
     }
 
@@ -115,8 +148,30 @@ const ProductCard = () => {
     }
   };
 
-  const colors = ["Red", "Blue", "Green", "Black"];
-  const sizes = ["S", "M", "L", "XL"];
+  if (loading) {
+    return (
+      <div className="loading-container">
+        <div className="spinner"></div>
+        <p>Loading product details...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="error-container">
+        <p className="error-message">{error}</p>
+        <button onClick={() => navigate("/")} className="back-btn">
+          Back to Home
+        </button>
+      </div>
+    );
+  }
+
+  if (!product) {
+    navigate("/");
+    return null;
+  }
 
   return (
     <div className="product-card-container">
@@ -125,16 +180,21 @@ const ProductCard = () => {
           src={product.product_photo}
           alt={product.product_name}
           className="product-card-image"
+          onError={(e) => {
+            e.target.src = "https://alvins.pythonanywhere.com/static/images/placeholder.jpg";
+          }}
         />
       </div>
 
       <div className="product-details-section">
         <h1 className="product-card-name">{product.product_name}</h1>
         <p className="product-card-price">KSh {product.product_cost}</p>
+        
         <div className="product-card-ratings">
           <span>★★★★☆</span>
           <span>({reviews.length} reviews)</span>
         </div>
+        
         <p className="product-availability">In Stock ({stock} left!)</p>
 
         <div className="product-options">
@@ -152,6 +212,7 @@ const ProductCard = () => {
               ))}
             </div>
           </div>
+          
           <div className="size-options">
             <p>Size:</p>
             <div className="size-buttons">
@@ -171,7 +232,7 @@ const ProductCard = () => {
         <div className="payment-section">
           {!localStorage.getItem("user_id") ? (
             <p className="login-prompt">
-              You must be <Link to="/signin">logged in</Link> to proceed with payment.
+              You must be <Link to="/login">logged in</Link> to proceed with payment.
             </p>
           ) : (
             <>
@@ -198,7 +259,7 @@ const ProductCard = () => {
           <button
             className="buy-now-btn"
             onClick={handleBuyNow}
-            disabled={paymentLoading || !localStorage.getItem("user_id")} 
+            disabled={paymentLoading || !localStorage.getItem("user_id")}
           >
             {paymentLoading ? (
               <>
@@ -273,8 +334,8 @@ const ProductCard = () => {
           )}
         </div>
 
-        <button className="back-btn" onClick={() => navigate("/")}>
-          Back to Home
+        <button className="back-btn" onClick={() => navigate(-1)}>
+          Back to Previous Page
         </button>
       </div>
     </div>

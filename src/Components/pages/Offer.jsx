@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import CountdownTimer from "./CountdownTimer";
-import "./Offer.css";
+import CountdownTimer from "../common/CountdownTimer";
+import '../styles/Offer.css'; 
 
 const Offer = () => {
   const [offers, setOffers] = useState([]);

@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './Carousel.css';
+import '../styles/Carousel.css';
 
 const Carousel = () => {
   const [carousels, setCarousels] = useState([]);
   const [products, setProducts] = useState([]);
-  const [offers, setOffers] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -14,10 +13,9 @@ const Carousel = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [carouselRes, productRes, offerRes] = await Promise.all([
+        const [carouselRes, productRes] = await Promise.all([
           axios.get('https://alvins.pythonanywhere.com/carousels'),
           axios.get('https://alvins.pythonanywhere.com/api/getproducts'),
-          axios.get('https://alvins.pythonanywhere.com/api/getOfferProducts')
         ]);
 
         // Process main carousel
@@ -30,7 +28,6 @@ const Carousel = () => {
         setCarousels(processedCarousels);
 
         setProducts(productRes.data);
-        setOffers(offerRes.data.offers || []);
       } catch (err) {
         console.error('Fetch error:', err);
         setError('Failed to load content.');
@@ -119,21 +116,6 @@ const Carousel = () => {
             />
           ))}
         </div>
-      </div>
-
-      {/* Right Box - Offers */}
-      <div className="side-box right-box">
-        {offers.length > 0 && (
-          <img
-            src={offers[getSafeIndex(offers)].image_url}
-            alt="Offer"
-            className="side-image"
-            onError={(e) => {
-              e.target.src = 'https://via.placeholder.com/200x300?text=Offer+Image';
-              e.target.alt = 'Fallback content';
-            }}
-          />
-        )}
       </div>
     </div>
   );

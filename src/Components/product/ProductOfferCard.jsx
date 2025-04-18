@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom"; // Added Link
 import axios from "axios";
-import "./ProductOfferCard.css";
+import '../styles/ProductOfferCard.css'; 
 
 const ProductOfferCard = () => {
   const location = useLocation();

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from './AuthContext'; // Import useAuth
-import './AuthForms.css';
+import { useAuth } from '../contexts/AuthContext'; // Use the useAuth hook
+import '../styles/AuthForms.css';
 
 const SignIn = () => {
   const [formData, setFormData] = useState({
@@ -9,7 +9,7 @@ const SignIn = () => {
     password: '',
   });
   const [error, setError] = useState('');
-  const { login, user } = useAuth(); // Use AuthContext methods
+  const { login, user } = useAuth(); // Use useAuth to access login and user
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -20,15 +20,20 @@ const SignIn = () => {
     }));
   };
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
 
-    const result = await login(formData); // Use AuthContext's login
-    if (result.success) {
-      navigate(user?.role === 'admin' ? '/admin' : '/'); // Redirect based on role
-    } else {
-      setError(result.error);
+    try {
+      const result = await login(formData);
+      if (result.success) {
+        navigate(user?.role === 'admin' ? '/admin' : '/');
+      } else {
+        setError(result.error || 'Login failed. Please try again.');
+      }
+    } catch (err) {
+      setError('An unexpected error occurred. Please try again.');
     }
   };
 
@@ -76,7 +81,7 @@ const SignIn = () => {
               <input type="checkbox" id="remember" />
               <label htmlFor="remember">Remember me</label>
             </div>
-            <a href="/forgotpassword" className="forgot-password">Forgot password?</a>
+            <a href="/forgot-password" className="forgot-password">Forgot password?</a>
           </div>
 
           <button type="submit" className="auth-button">
