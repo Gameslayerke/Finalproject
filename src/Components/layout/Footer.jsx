@@ -44,24 +44,7 @@ const Footer = () => {
             Your one-stop shop for all your needs. We provide quality products, 
             fast delivery, and excellent customer service to ensure your complete satisfaction.
           </p>
-          <div className="contact-info">
-            <div className="contact-item">
-              <FaMapMarkerAlt className="contact-icon" />
-              <span>123 Business Ave, Commerce City</span>
-            </div>
-            <div className="contact-item">
-              <FaPhoneAlt className="contact-icon" />
-              <span>+1 (555) 123-4567</span>
-            </div>
-            <div className="contact-item">
-              <FaEnvelope className="contact-icon" />
-              <span>support@quickcart.com</span>
-            </div>
-            <div className="contact-item">
-              <FaClock className="contact-icon" />
-              <span>Mon-Fri: 9AM - 6PM</span>
-            </div>
-          </div>
+          
           <div className="social-icons">
             <a href="#" aria-label="Facebook"><FaFacebook /></a>
             <a href="#" aria-label="Twitter"><FaTwitter /></a>
