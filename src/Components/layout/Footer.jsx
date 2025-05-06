@@ -1,12 +1,17 @@
 import React from 'react';
+<<<<<<< HEAD
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaCcVisa, FaCcMastercard, FaCcPaypal } from 'react-icons/fa';
 import '../styles/Footer.css';
+=======
+import '../styles/Footer.css'; 
+>>>>>>> 1925eb20dab2b19de1a47f68a1d1327212d72e66
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   
   return (
     <footer className="app-footer">
+<<<<<<< HEAD
       <div className="footer-top">
         <div className="footer-section">
           <h4>QuickCart</h4>
@@ -63,6 +68,11 @@ const Footer = () => {
           <p>&copy; {currentYear} QuickCart. All rights reserved.</p>
           <p>Developed by Alvins Munene</p>
         </div>
+=======
+      <div className="footer-content">
+        <span>&copy; {currentYear} QuickCart</span>
+        <span>Developed by Alvins Munene</span>
+>>>>>>> 1925eb20dab2b19de1a47f68a1d1327212d72e66
       </div>
     </footer>
   );

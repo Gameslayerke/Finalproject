@@ -96,6 +96,14 @@
   margin: 5px 0;
 }
 
+/* Added from second side */
+.footer-content {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
 @media (max-width: 768px) {
   .footer-top {
     grid-template-columns: 1fr 1fr;
@@ -109,5 +117,12 @@
   
   .copyright {
     text-align: center;
+  }
+}
+
+@media (max-width: 576px) {
+  .footer-content {
+    flex-direction: column;
+    gap: 5px;
   }
 }

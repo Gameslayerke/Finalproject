@@ -121,7 +121,11 @@ const Navbar = () => {
                 )}
               </li>
               <li><Link to="/deals">Deals</Link></li>
+<<<<<<< HEAD
               <li><Link to="/help">Help</Link></li>
+=======
+              <li><Link to="/track-order">Track Order</Link></li>
+>>>>>>> 1925eb20dab2b19de1a47f68a1d1327212d72e66
             </ul>
 
             <form className="search" onSubmit={handleSearch}>
@@ -259,7 +263,11 @@ const Navbar = () => {
               </ul>
             </li>
             <li><Link to="/deals" onClick={toggleMobileMenu}><FaTag /> Deals</Link></li>
+<<<<<<< HEAD
             <li><Link to="/track-order" onClick={toggleMobileMenu}><FaMapMarkerAlt /> Help</Link></li>
+=======
+            <li><Link to="/track-order" onClick={toggleMobileMenu}><FaMapMarkerAlt /> Track Order</Link></li>
+>>>>>>> 1925eb20dab2b19de1a47f68a1d1327212d72e66
 
             {isAuthenticated ? (
               <>

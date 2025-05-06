@@ -15,6 +15,27 @@ import ForgotPasswordForm from './Components/auth/Password';
 import ResetPasswordForm from './Components/auth/Resetpassword';
 import HelpPage from './Components/pages/Help';
 import FAQPage from './Components/pages/FAQS';
+
+// Auth components
+import SignUp from './Components/auth/SignUp';
+import SignIn from './Components/auth/SignIn';
+
+// Layout components
+import Navbar from './Components/layout/Navbar';
+import Footer from './Components/layout/Footer';
+
+// Page components
+import HomePage from './Components/pages/HomePage';
+import Offer from './Components/pages/Offer';
+
+// Product components
+import ProductOfferCard from './Components/product/ProductOfferCard';
+import ProductCard from './Components/product/ProductCard';
+
+// Common/Entry components
+import WelcomeScreen from './Components/WelcomeScreen';
+
+// Layout config
 const LAYOUT_CONFIG = {
   hiddenPaths: ['/', '/login', '/register'],
   routes: [
@@ -36,6 +57,7 @@ const LAYOUT_CONFIG = {
 
 
 
+    // New routes with placeholder divs
     { 
       path: '/orders', 
       element: <div className="quote">Your orders will appear here once you make some purchases!</div> 

@@ -96,7 +96,11 @@ const Carousel = () => {
                   }}
                 />
                 <div className="slide-content centered">
+<<<<<<< HEAD
                   <button className="shop-now-btn" onClick={() => window.location.href = '/deals'}>
+=======
+                  <button className="shop-now-btn" onClick={() => window.location.href = '/shop'}>
+>>>>>>> 1925eb20dab2b19de1a47f68a1d1327212d72e66
                     SHOP NOW
                   </button>
                 </div>
