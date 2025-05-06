@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-<<<<<<< HEAD
-import '../styles/AuthForms.css';
-=======
 import '../styles/AuthForms.css'; 
->>>>>>> 1925eb20dab2b19de1a47f68a1d1327212d72e66
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -12,39 +8,20 @@ const SignUp = () => {
     email: '',
     phone: '',
     password: '',
-<<<<<<< HEAD
-    confirmPassword: '',
-  });
-  const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [termsAccepted, setTermsAccepted] = useState(false); // New state for terms acceptance
-=======
     confirmPassword: ''
   });
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
->>>>>>> 1925eb20dab2b19de1a47f68a1d1327212d72e66
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-<<<<<<< HEAD
-      [name]: value,
-    }));
-  };
-
-  const handleTermsChange = (e) => {
-    setTermsAccepted(e.target.checked);
-  };
-
-=======
       [name]: value
     }));
   };
 
->>>>>>> 1925eb20dab2b19de1a47f68a1d1327212d72e66
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
@@ -55,15 +32,6 @@ const SignUp = () => {
       return;
     }
 
-<<<<<<< HEAD
-    // Check if terms and conditions are accepted
-    if (!termsAccepted) {
-      setError('Please agree to the Terms and Conditions to sign up.');
-      return;
-    }
-
-=======
->>>>>>> 1925eb20dab2b19de1a47f68a1d1327212d72e66
     setIsLoading(true);
 
     try {
@@ -76,11 +44,7 @@ const SignUp = () => {
           username: formData.username,
           email: formData.email,
           phone: formData.phone,
-<<<<<<< HEAD
-          password: formData.password,
-=======
           password: formData.password
->>>>>>> 1925eb20dab2b19de1a47f68a1d1327212d72e66
         }),
       });
 
@@ -183,27 +147,11 @@ const SignUp = () => {
           </div>
 
           <div className="terms-agreement">
-<<<<<<< HEAD
-            <input
-              type="checkbox"
-              id="terms"
-              required
-              checked={termsAccepted} // Bind the checked state
-              onChange={handleTermsChange} // Handle checkbox changes
-            />
-            <label htmlFor="terms">
-              I agree to the <a href="/terms">Terms and Conditions</a>
-            </label>
-          </div>
-
-          <button type="submit" className="auth-button" disabled={isLoading || !termsAccepted}>
-=======
             <input type="checkbox" id="terms" required />
             <label htmlFor="terms">I agree to the <a href="/terms">Terms and Conditions</a></label>
           </div>
 
           <button type="submit" className="auth-button" disabled={isLoading}>
->>>>>>> 1925eb20dab2b19de1a47f68a1d1327212d72e66
             {isLoading ? 'Creating Account...' : 'Sign Up'}
           </button>
 

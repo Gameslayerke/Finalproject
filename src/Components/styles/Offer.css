@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 .offers-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -120,7 +119,8 @@
   padding-top: 10px;
   border-top: 1px solid #eee;
   margin-top: 10px;
-=======
+}
+
 /* Flash Sales Styles */
 .flash-sales-container {
   max-width: 1200px;
@@ -308,5 +308,4 @@
 
 .retry-button:hover {
   background: #c1121f;
->>>>>>> 1925eb20dab2b19de1a47f68a1d1327212d72e66
 }

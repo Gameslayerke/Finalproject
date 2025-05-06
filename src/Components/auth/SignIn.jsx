@@ -9,11 +9,7 @@ const SignIn = () => {
     password: '',
   });
   const [error, setError] = useState('');
-<<<<<<< HEAD
-  const { login, user } = useAuth(); 
-=======
   const { login, user } = useAuth(); // Use useAuth to access login and user
->>>>>>> 1925eb20dab2b19de1a47f68a1d1327212d72e66
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -85,11 +81,7 @@ const SignIn = () => {
               <input type="checkbox" id="remember" />
               <label htmlFor="remember">Remember me</label>
             </div>
-<<<<<<< HEAD
             <a href="/forgotpassword" className="forgot-password">Forgot password?</a>
-=======
-            <a href="/forgot-password" className="forgot-password">Forgot password?</a>
->>>>>>> 1925eb20dab2b19de1a47f68a1d1327212d72e66
           </div>
 
           <button type="submit" className="auth-button">

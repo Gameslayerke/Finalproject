@@ -2,27 +2,45 @@ import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import Carousel from "../common/Carousel";
-import "../../index.css"; 
+import Loader from "../layout/Loader"; // Import the Loader component
+import useNetworkStatus from "../hooks/useNetworkStatus"; // Import the network status hook
+import "../../index.css";
+
 const Homepage = () => {
   // State for products
   const [products, setProducts] = useState([]);
   const [productsLoading, setProductsLoading] = useState(false);
   const [productsError, setProductsError] = useState("");
-
+  const [progress, setProgress] = useState(0); // For progress loader
+  
+  const isSlowNetwork = useNetworkStatus(); // Get network status
   const navigate = useNavigate();
   const { categoryId } = useParams();
   const img_url = "https://alvins.pythonanywhere.com/static/images/";
 
-  // Fetch products
+  // Fetch products with progress tracking
   const fetchProducts = useCallback(async () => {
     setProductsLoading(true);
     setProductsError("");
+    setProgress(0);
+    
     try {
       let url = categoryId 
         ? `https://alvins.pythonanywhere.com/api/getproducts?category_id=${categoryId}`
         : "https://alvins.pythonanywhere.com/api/getproducts";
 
-      const { data } = await axios.get(url);
+      // Using axios with progress tracking
+      const { data } = await axios({
+        method: 'get',
+        url: url,
+        onDownloadProgress: (progressEvent) => {
+          const percentCompleted = Math.round(
+            (progressEvent.loaded * 100) / progressEvent.total
+          );
+          setProgress(percentCompleted);
+        }
+      });
+
       const formattedProducts = data.map((product) => ({
         ...product,
         product_photo: product.product_photo
@@ -35,6 +53,7 @@ const Homepage = () => {
       setProductsError("Failed to load products. Please refresh.");
     } finally {
       setProductsLoading(false);
+      setProgress(100);
     }
   }, [categoryId]);
 
@@ -47,6 +66,7 @@ const Homepage = () => {
   const handleProductClick = (product) => {
     navigate(`/products/${product.id}`, { state: { product } });
   };
+
   const handleAddToCart = async (product) => {
     const user_id = localStorage.getItem("user_id");
     if (!user_id) {
@@ -69,6 +89,16 @@ const Homepage = () => {
     }
   };
 
+  // Show loader if loading or slow network
+  if (productsLoading || (isSlowNetwork && progress < 100)) {
+    let message = "Loading products...";
+    if (isSlowNetwork) {
+      message = "Loading may take longer due to slow network connection...";
+    }
+    
+    return <Loader message={message} progress={progress} />;
+  }
+
   return (
     <div className="homepage-container">
       {/* Carousel Section */}
@@ -76,9 +106,15 @@ const Homepage = () => {
         <Carousel />
       </div>
 
-      {/* Loading/Error States */}
-      {productsLoading && <div className="loading-message">Loading products...</div>}
-      {productsError && <div className="error-message">{productsError}</div>}
+      {/* Error State */}
+      {productsError && (
+        <div className="error-message">
+          {productsError}
+          <button onClick={fetchProducts} className="retry-button">
+            Retry
+          </button>
+        </div>
+      )}
 
       {/* Product Grid */}
       <div className="product-grid">

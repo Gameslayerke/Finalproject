@@ -15,25 +15,7 @@ import ForgotPasswordForm from './Components/auth/Password';
 import ResetPasswordForm from './Components/auth/Resetpassword';
 import HelpPage from './Components/pages/Help';
 import FAQPage from './Components/pages/FAQS';
-
-// Auth components
-import SignUp from './Components/auth/SignUp';
-import SignIn from './Components/auth/SignIn';
-
-// Layout components
-import Navbar from './Components/layout/Navbar';
-import Footer from './Components/layout/Footer';
-
-// Page components
-import HomePage from './Components/pages/HomePage';
-import Offer from './Components/pages/Offer';
-
-// Product components
-import ProductOfferCard from './Components/product/ProductOfferCard';
-import ProductCard from './Components/product/ProductCard';
-
-// Common/Entry components
-import WelcomeScreen from './Components/WelcomeScreen';
+import Loader from './Components/layout/Loader';
 
 // Layout config
 const LAYOUT_CONFIG = {
@@ -52,9 +34,7 @@ const LAYOUT_CONFIG = {
     { path: '/resetpassword', element: <ResetPasswordForm /> },
     { path: '/help', element: <HelpPage /> },
     { path: '/faqs', element: <FAQPage /> },
-
-
-
+    { path: '/loader', element: <Loader /> },
 
 
     // New routes with placeholder divs
@@ -95,7 +75,6 @@ function Layout() {
               element={route.element} 
             />
           ))}
-          <Route path="/deals/:offerId" element={<ProductOfferCard />} />
         </Routes>
       </main>
 

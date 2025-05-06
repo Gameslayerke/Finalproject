@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
@@ -12,22 +11,11 @@ const ProductOfferCard = () => {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-=======
-import React, { useState } from "react";
-import { useLocation, useNavigate, Link } from "react-router-dom"; // Added Link
-import axios from "axios";
-import '../styles/ProductOfferCard.css'; 
-
-const ProductOfferCard = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
->>>>>>> 1925eb20dab2b19de1a47f68a1d1327212d72e66
   const [phone, setPhone] = useState("");
   const [paymentLoading, setPaymentLoading] = useState(false);
   const [paymentError, setPaymentError] = useState("");
   const [paymentSuccess, setPaymentSuccess] = useState(false);
 
-<<<<<<< HEAD
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -43,7 +31,6 @@ const ProductOfferCard = () => {
         }
       } catch (err) {
         setError(err.message);
-        fetchProduct();
       } finally {
         setLoading(false);
       }
@@ -55,31 +42,14 @@ const ProductOfferCard = () => {
       navigate("/", { replace: true });
     }
   }, [productId, navigate]);
-=======
-  // Get the product data from location.state
-  const { product } = location.state || {};
-
-  if (!product) {
-    navigate("/"); 
-    return null;
-  }
->>>>>>> 1925eb20dab2b19de1a47f68a1d1327212d72e66
 
   const validatePhoneNumber = (phone) => /^254\d{9}$/.test(phone);
 
   const handleBuyNow = async () => {
-<<<<<<< HEAD
     const user_id = localStorage.getItem("user_id");
 
     if (!user_id) {
       navigate("/signin", { state: { from: "product-offer", productId } });
-=======
-    const user_id = localStorage.getItem("user_id"); // Check if the user is logged in
-
-    if (!user_id) {
-
-      navigate("/signin", { state: { from: "product-offer", productId: product.id } });
->>>>>>> 1925eb20dab2b19de1a47f68a1d1327212d72e66
       return;
     }
 
@@ -120,7 +90,6 @@ const ProductOfferCard = () => {
     }
   };
 
-<<<<<<< HEAD
   if (loading) {
     return (
       <div className="loading-container">
@@ -236,61 +205,6 @@ const ProductOfferCard = () => {
           </div>
         </div>
       </Card>
-=======
-  return (
-    <div className="product-offer-card-container">
-      <div className="product-offer-image-section">
-        <img src={product.image_url} alt={product.title} className="product-offer-image" />
-      </div>
-
-      <div className="product-offer-details-section">
-        <h1 className="product-offer-title">{product.title}</h1>
-        <p className="product-offer-description">{product.description}</p>
-
-        <div className="product-offer-prices">
-          <span className="original-price">Original Price: KSh {product.original_price}</span>
-          <span className="discounted-price">Discounted Price: KSh {product.discounted_price}</span>
-          <span className="discount-percentage">{product.discount_percentage}% OFF</span>
-        </div>
-
-        <div className="payment-section">
-          {!localStorage.getItem("user_id") ? (
-            <p className="login-prompt">
-              You must be <Link to="/signin" state={{ from: "product-offer", productId: product.id }}>logged in</Link> to proceed with payment.
-            </p>
-          ) : (
-            <>
-              <p>Enter your phone number to pay via M-Pesa:</p>
-              <input
-                type="text"
-                placeholder="2547XXXXXXXX"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                className="phone-input"
-              />
-              {paymentError && <p className="error-message">{paymentError}</p>}
-              {paymentSuccess && (
-                <p className="success-message">Payment initiated! Check your phone.</p>
-              )}
-            </>
-          )}
-        </div>
-
-        <div className="product-offer-actions">
-          <button
-            className="buy-now-btn"
-            onClick={handleBuyNow}
-            disabled={paymentLoading || !localStorage.getItem("user_id")} 
-          >
-            {paymentLoading ? <span className="spinner"></span> : "Buy Now"}
-          </button>
-        </div>
-
-        <button className="back-btn" onClick={() => navigate("/")}>
-          Back to Home
-        </button>
-      </div>
->>>>>>> 1925eb20dab2b19de1a47f68a1d1327212d72e66
     </div>
   );
 };
