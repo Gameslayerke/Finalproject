@@ -16,6 +16,8 @@ import ResetPasswordForm from './Components/auth/Resetpassword';
 import HelpPage from './Components/pages/Help';
 import FAQPage from './Components/pages/FAQS';
 import Loader from './Components/layout/Loader';
+import CouponsPage from './Components/pages/Coupons';
+import UserSettingsPage from './Components/pages/Settings';
 
 // Layout config
 const LAYOUT_CONFIG = {
@@ -35,6 +37,10 @@ const LAYOUT_CONFIG = {
     { path: '/help', element: <HelpPage /> },
     { path: '/faqs', element: <FAQPage /> },
     { path: '/loader', element: <Loader /> },
+    { path: '/coupons', element: <CouponsPage /> },
+    { path: '/settings', element: <UserSettingsPage /> },
+
+
 
 
     // New routes with placeholder divs

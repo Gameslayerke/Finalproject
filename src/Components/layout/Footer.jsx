@@ -57,36 +57,36 @@ const Footer = () => {
           <div className="footer-section">
             <h4>Shop</h4>
             <ul>
-              <li><a href="#">All Products</a></li>
-              <li><a href="#">Featured Items</a></li>
-              <li><a href="#">New Arrivals</a></li>
-              <li><a href="#">Sale Items</a></li>
-              <li><a href="#">Gift Cards</a></li>
-              <li><a href="#">Weekly Deals</a></li>
+              <li><a href="/home">All Products</a></li>
+              <li><a href="/deals">Featured Items</a></li>
+              <li><a href="/deals">New Arrivals</a></li>
+              <li><a href="/home">Sale Items</a></li>
+              <li><a href="/coupons">Gift Cards</a></li>
+              <li><a href="/deals">Weekly Deals</a></li>
             </ul>
           </div>
 
           <div className="footer-section">
             <h4>Customer Service</h4>
             <ul>
-              <li><a href="#">Contact Us</a></li>
-              <li><a href="#">FAQs</a></li>
-              <li><a href="#">Shipping Policy</a></li>
-              <li><a href="#">Returns & Refunds</a></li>
-              <li><a href="#">Track Order</a></li>
-              <li><a href="#">Size Guide</a></li>
+              <li><a href="/help">Contact Us</a></li>
+              <li><a href="/faqs">FAQs</a></li>
+              <li><a href="/policy">Shipping Policy</a></li>
+              <li><a href="/help">Returns & Refunds</a></li>
+              <li><a href="/help">Track Order</a></li>
+              <li><a href="/help">Size Guide</a></li>
             </ul>
           </div>
 
           <div className="footer-section">
             <h4>Company</h4>
             <ul>
-              <li><a href="#">About Us</a></li>
-              <li><a href="#">Blog</a></li>
-              <li><a href="#">Careers</a></li>
-              <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">Terms of Service</a></li>
-              <li><a href="#">Sustainability</a></li>
+              <li><a href="/help">About Us</a></li>
+              <li><a href="/help">Blog</a></li>
+              <li><a href="/policy">Careers</a></li>
+              <li><a href="/policy">Privacy Policy</a></li>
+              <li><a href="/policy">Terms of Service</a></li>
+              <li><a href="/help">Sustainability</a></li>
             </ul>
           </div>
         </div>
